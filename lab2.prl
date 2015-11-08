@@ -1,0 +1,6 @@
+quant_1(X, Y) :- length(X, Y). 
+
+member_1(X, Y, Z) :- length(Z, 1), [I] = Z, nth(I, Y, X).
+member_1(X, Y, Z) :- [I, T] = Z, nth(I, Y, X), member_1(X, Y, T).
+
+add_element(E, L, R) :- append(L, [E], R).

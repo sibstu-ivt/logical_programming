@@ -1,0 +1,24 @@
+son(S, P) :- child(S, P), man(S).
+
+brother(X, Y):- man(X), child(X, F), child(X, M), child(Y, F), child(Y, M).
+
+step_sister(X, Y):- women(S), child(X,F), child(Y,F), child(X, M), child(Y, A), =(A, M) -> true ; false.
+step_sister(X, Y):- women(S), child(X,F), child(Y,A), child(X, M), child(Y, M), =(A, F) -> true ; false
+
+brothers(X, Y):- man(X), man(Y), child(X, F), child(X, M), child(Y, F), child(Y, M).
+
+uncle(X, Y):- man(X), son(Y, P), brother(X, P).
+
+niece(X, Y):- woman(X), child(X, P), child(P, G), child(Y, G).
+
+parents(M, F, C):- child(C, M), child(C, F), man(M), women(F).
+parents(F, M, C):- child(C, M), child(C, F), man(M), women(F).
+
+wife(W, M):- women(W), pair(W, M).
+
+mother_in_law(W, S) :- women(W), man(S), pair(D, S), child(D, W).
+
+women_cousin(Girl, Somebody) :- women(Girl), child(Girl, GirlParent), child(GirlParent, GrandParent), child(Somebody, SParent), child(SParent, GrandParent).
+
+son_in_law(X, Y) :- man(X), child(W, Y), pair(X, W).
+ 
