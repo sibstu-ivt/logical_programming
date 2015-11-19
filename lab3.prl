@@ -1,58 +1,38 @@
-i1	i2	i3	o1	o2	o3
-0	0	0	1	1	0
-0	0	1	1	1	0
-0	1	0	1	0	1
-0	1	1	1	0	0
-1	0	0	1	0	1
-1	0	1	1	0	0
-1	1	0	1	0	1
-1	1	1	1	0	0
+bin_not(0, 1).
+bin_not(1, 0).
+
+bin_con(0, 0, 0).
+bin_con(0, 1, 0).
+bin_con(1, 0, 0).
+bin_con(1, 1, 1).
+
+bin_dis(0, 0, 0).
+bin_dis(0, 1, 1).
+bin_dis(1, 0, 1).
+bin_dis(1, 1, 1).
+
+bin_dis_not(I1, I2, O) :- bin_dis(I1, I2, T), bin_not(T, O).
+
+bin_con_not(I1, I2, O) :- bin_con(I1, I2, T), bin_not(T, O).
+
+
+bin_letter_p(I1, I2, I3, I4, O1, O2) :- bin_con_not(I1, I2, Temp1), bin_dis(Temp1, I3, Temp2), bin_dis(Temp2, I4, O2), bin_not(O2, O1).
 
 
 
 
 
 
-
-
-
-i1	i2	i3	i4	o1	o2
-0	0	0	0	0	1
-0	0	0	1	0	1
-0	0	1	0	0	1
-0	0	1	1	0	1
-0	1	0	0	0	1
-0	1	0	1	0	1
-0	1	1	0	0	1
-0	1	1	1	0	1
-1	0	0	0	0	1
-1	0	0	1	0	1
-1	0	1	0	0	1
-1	0	1	1	0	1
-1	1	0	0	1	0
-1	1	0	1	0	1
-1	1	1	0	0	1
-1	1	1	1	0	1
+bin_letter_k(I1, I2, I3, O1, O2, O3) :- bin_dis_not(I1, I2, O2), bin_con_not(I1, O2, O1), bin_dis_not(I3, O2, O3).
 
 
 
 
 
 
-i1	i2	i3	i4	o1	o2
-0	0	0	0	1	1
-0	0	0	1	1	1
-0	0	1	0	0	1
-0	0	1	1	0	0
-0	1	0	0	1	1
-0	1	0	1	1	1
-0	1	1	0	0	1
-0	1	1	1	0	0
-1	0	0	0	1	1
-1	0	0	1	1	1
-1	0	1	0	0	1
-1	0	1	1	0	0
-1	1	0	0	1	1
-1	1	0	1	1	1
-1	1	1	0	1	1
-1	1	1	1	1	0			
+bin_letter_u(I1, I2, I3, I4, O1, O2) :- bin_con_not(I1, I2, Temp1), 
+                                        bin_con_not(Temp1, I1, Temp2), 
+                                        bin_con(Temp2, I3, Temp3), 
+                                        bin_con_not(Temp3, I4, O2),
+                                        bin_con(O2, Temp1, Temp4),
+                                        bin_con_not(Temp4, I3, O1).
