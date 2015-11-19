@@ -1,9 +1,23 @@
 quant_1(X, Y) :- length(X, Y). 
 
-nth(Elem, [H|_], 0) :- Elem=H.
-nth(Elem, [_|T], Index) :- Index > 0, I = Index - 1, nth(Elem, T, I).
+nth(_, [], _) :- fail.
+nth(Elem, [_|T], I) :- nth(Elem, T, In), I is In + 1.
+nth(Elem, [H|_], 0) :- Elem=H,!.
 
-member_1(Elem, List, IndexesList) :- length(IndexesList, 0), not(member(Elem, List)).
-member_1(Elem, List, IndexesList) :- length(IndexesList, L), L > 0, [I|T] = IndexesList, nth(Elem, List, I), member_1(Elem, 	List, T).
+
+member_help(_, [], [], _) :- !.
+member_help(E, L, Z, _) :- not(member(E,L)),Z=[],!.
+member_help(E, [H|T], [I|IL], I) :- E=H,  I1 is I + 1, member_help(E,T,IL,I1),!.
+member_help(E, [H|T], IL, I) :- not(E=H), I1 is I + 1, member_help(E,T,IL,I1),!.
+
+
+member_1(Elem, List, Indexes) :- member_help(Elem, List, Indexes, 0).
+
+
+
+
+
+
+
 
 add_element(E, L, R) :- append(L, [E], R).

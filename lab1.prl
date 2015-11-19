@@ -145,7 +145,7 @@ brothers(X, Y):- man(X), man(Y), child(X, F), child(X, M), child(Y, F), child(Y,
 
 uncle(X, Y):- man(X), child(Y, P), brother(X, P).
 
-niece(X, Y):- woman(X), child(X, P), child(P, G), child(Y, G), not(X=P), not (X=G), not (X=Y), not(P=G).
+niece(X, Y):- woman(X), child(X, P), child(P, G), child(Y, G), not(X=P), not(X=G), not(X=Y), not(P=G).
 
 parents(M, F, C):- child(C, M), child(C, F), not(M=F).
 
